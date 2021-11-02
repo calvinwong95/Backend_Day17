@@ -1,0 +1,70 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\DeptController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+//url starts with admin /
+Route::prefix('admin')->group(function (){
+
+    //admin controller start
+    Route::any('/',[AdminController::class,'index']);
+
+    Route::any('/test',[AdminController::class,'dashboard']);
+
+
+    Route::any('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+
+
+    Route::any('/usermanagement',[AdminController::class,'usermanagement'])->name('usermanagement');
+    Route::get('/delete/{id}',[AdminController::class,'delete']);
+    Route::get('/edit/{id}',[AdminController::class,'edit']);
+    Route::post('edit',[AdminController::class,'update'])->name('user.edit');
+    Route::get('/usermanagement',[AdminController::class,'getUsers']);
+
+    //admin controller end
+
+    //job controller start
+    Route::any('/jobmanagement',[JobController::class,'jobmanagement'])->name('jobmanagement');
+    Route::get('/jobmanagement',[JobController::class,'getJobs']);
+    Route::get('/delete/{id}',[JobController::class,'delete']);
+    Route::get('/edit/{id}',[JobController::class,'edit']);
+    Route::post('edit',[JobController::class,'update'])->name('job.edit');
+
+    //job controller end
+
+    //department controller start
+    Route::any('/deptmanagement',[DeptController::class,'deptmanagement'])->name('deptmanagement');
+    Route::get('/deptmanagement',[DeptController::class,'getDept']);
+    Route::get('/delete/{id}',[DeptController::class,'delete']);
+    Route::get('/edit/{id}',[DeptController::class,'edit']);
+    Route::post('edit',[DeptController::class,'update'])->name('dept.edit');
+
+
+
+    //department controller end
+
+
+});
+
+
+
+
+
