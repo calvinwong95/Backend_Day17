@@ -16,9 +16,9 @@ class QueueEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($email_list)
     {
-        //
+        $this->email_list = $email_list;
     }
 
     /**
@@ -28,6 +28,12 @@ class QueueEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.testQueueMail');
+        return $this->view('email.testQueueMail',[
+            'email_list' => $this->email_list
+        ]
+    );
+
+
+
     }
 }

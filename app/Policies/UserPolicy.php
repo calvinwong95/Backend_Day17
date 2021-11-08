@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -53,9 +54,9 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         //
-        return $user->role == 1;
+        return $user->id == $model->id || $user->role ==1
         ? Response::allow()
-        ;
+        : Response::deny('You can not edit this user.');
     }
 
     /**

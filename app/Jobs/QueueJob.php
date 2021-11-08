@@ -21,10 +21,10 @@ class QueueJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($email_list)
     {
         //
-        // $this->email_list = $email_list;
+        $this->email_list = $email_list;
     }
 
     /**
@@ -36,9 +36,9 @@ class QueueJob implements ShouldQueue
 
     public function handle()
     {
-        //
-        // $email = new QueueEmail();
-        // Mail::to($this->email_list['email'])->send($email);
-        Mail::to('calvinwongch95@gmail.com')->send(new QueueEmail());
+
+        $email = new QueueEmail($this->email_list);
+        Mail::to($this->email_list['email'])->send($email);
+
     }
 }

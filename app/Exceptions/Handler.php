@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Exception;
@@ -43,17 +44,24 @@ class Handler extends ExceptionHandler
             //
         });
 
-        $this->renderable(function(TokenInvalidException $e,$request){
+        $this->renderable(function(TokenInvalidException $e, $request){
             // return response()->json(['error'=>'Invalid token'],401);
             return Response::json(['error'=>'Invalid token'],401);
         });
-
-        $this->renderable(function(TokenExpiredException $e,$request){
-            return Response::json(['error'=>'Token has expired'],401);
+        $this->renderable(function (TokenExpiredException $e, $request) {
+            return Response::json(['error'=>'Token has Expired'],401);
         });
 
-        $this->renderable(function(JWTException $e,$request){
+        $this->renderable(function (JWTException $e, $request) {
             return Response::json(['error'=>'Token not parsed'],401);
         });
+
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $request->expectsJson()
+        ? response()->json(["error" =>  "invalid_request", "message" => "The access token is invalid.", "hint" => "Token has expired"], 401)
+        : redirect()->guest(route('login'));
     }
 }

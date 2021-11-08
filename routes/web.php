@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\DeptController;
 use App\Http\Controllers\EmailController;
+
+use App\Http\Controllers\UserController;
 use App\Models\User;
 
 /*
@@ -35,6 +37,8 @@ Route::get('queue-email', function () {
 
 
 Route::get('/sendmail', [EmailController::class,'sendEmail']);
+
+Route::resource("user",UserController::class);
 
 
 //url starts with admin /
