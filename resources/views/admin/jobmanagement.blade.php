@@ -89,6 +89,12 @@
                     <span>Department Management</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Logout</span></a>
+            </li>
+
 
 
             <!-- Divider -->
@@ -333,8 +339,8 @@
                             <td>{{$job['min_salary']}}</td>
                             <td>{{$job['mas_salary']}}</td>
                             <td>
-                                <a href="{{"delete/".$job['id']}}">Delete</a>
-                                <a href="{{"edit/".$job['id']}}">Edit</a>
+                                <a href="{{"deletej/".$job['id']}}">Delete</a>
+                                <a href="{{"editj/".$job['id']}}">Edit</a>
                             </td>
                         </tr>
                         @endforeach

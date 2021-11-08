@@ -89,6 +89,12 @@
                     <span>Department Management</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Logout</span></a>
+            </li>
+
 
 
             <!-- Divider -->

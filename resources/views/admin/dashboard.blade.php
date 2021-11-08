@@ -12,6 +12,7 @@
 
     <title>SB Admin 2 - Blank</title>
 
+
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -313,7 +314,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                {{-- <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <h1>{{$countuser}}</h1>
@@ -321,31 +322,64 @@
                     <br>
 
 
-                </div>
-                <!-- /.container-fluid -->
-
-                <!-- Begin Page Content -->
+                </div> --}}
+                {{$jwt_token}}
                 <div class="container-fluid">
+                <div class="row">
 
-                    <!-- Page Heading -->
-                    <h1>{{$countjob}}</h1>
-                    <h1 class="h3 mb-4 text-gray-800">Total Jobs</h1>
-                    <br>
-
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Users</div>
+                                    <div id="user_total" class="h5 mb-0 font-weight-bold text-gray-800">{{$countuser}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.container-fluid -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Total Departments</h1>
-                    <br>
-                    <h1>
-                    {{-- {{$countdepart}} --}}
-                    </h1>
-
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Jobs</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countjob}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total Departments</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$countdepart}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -392,6 +426,8 @@
         </div>
     </div>
 
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -401,6 +437,26 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+            alert('hi');
+            $.ajax({
+                url:'/api/dashboard',
+                type:'post',
+                headers: {"Authorization": "Bearer {{$jwt_token}}"},
+                data:{},
+                success:function(response){
+                    $("#user_total").html(response.user_total);
+                },
+                error:function(error){
+
+                },
+            });
+        });
+    </script>
+
 
 </body>
 

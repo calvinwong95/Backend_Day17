@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use JWTAuth;
 use App\Models\User;
 use App\Models\Department;
 
@@ -53,11 +54,13 @@ class AdminController extends Controller
 
     public function dashboard() {
 
+        $jwt_token = session('jwt_token');
+
         $data = DB::table('users')->count();
         $datajob = DB::table('jobs')->count();
-        $datadepartment = Department::count();
+        $datadept = DB::table('departments')->count();
 
-        return view('admin.dashboard',['countuser'=>$data],['countjob'=>$datajob],['countdepart'=>$datadepartment]);
+        return view('admin.dashboard',['countuser'=>$data,'countjob'=>$datajob,'countdepart'=>$datadept,'jwt_token'=>$jwt_token]);
     }
 
 
@@ -73,6 +76,9 @@ class AdminController extends Controller
             if (Auth::attempt($credentials)) {
             if(Auth::user()->role==1) {
                 $request->session()->regenerate();
+                $jwt_token = JWTAuth::attempt($credentials);
+                session(['jwt_token'=>$jwt_token]);
+
                 // return redirect('dashboard');
                 return redirect()->route('dashboard');
             } else {

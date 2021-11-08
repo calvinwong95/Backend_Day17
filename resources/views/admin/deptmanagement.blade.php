@@ -89,6 +89,12 @@
                     <span>Department Management</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Logout</span></a>
+            </li>
+
 
 
             <!-- Divider -->
@@ -329,8 +335,8 @@
                             <td>{{$dept['name']}}</td>
 
                             <td>
-                                <a href="{{"delete/".$dept['id']}}">Delete</a>
-                                <a href="{{"edit/".$dept['id']}}">Edit</a>
+                                <a href="{{"deleted/".$dept['id']}}">Delete</a>
+                                <a href="{{"editd/".$dept['id']}}">Edit</a>
                             </td>
                         </tr>
                         @endforeach
